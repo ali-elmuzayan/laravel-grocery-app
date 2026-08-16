@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use Filterable, HasFactory;
 
     protected $fillable = [
         'vendor_id', 'category_id', 'name', 'slug', 'description', 'price', 'stock', 'status', 'is_active',
