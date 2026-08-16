@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -38,6 +39,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return [
             'roles' => $this->getRoleNames()->toArray(),
         ];
+    }
+
+    public function otps(): HasOne
+    {
+        return $this->hasOne(UserOtp::class);
     }
 
     protected function casts(): array
