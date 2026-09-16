@@ -3,16 +3,14 @@
 namespace App\Models;
 
 use App\Models\Concerns\Filterable;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[Fillable(['vendor_id', 'category_id', 'name', 'slug', 'description', 'price', 'stock', 'status', 'is_active'])]
 class Product extends Model
 {
     use Filterable, HasFactory;
-
-    protected $fillable = [
-        'vendor_id', 'category_id', 'name', 'slug', 'description', 'price', 'stock', 'status', 'is_active',
-    ];
 
     protected function casts(): array
     {
@@ -22,6 +20,9 @@ class Product extends Model
         ];
     }
 
+    /**
+     * Relationships with Category model
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);

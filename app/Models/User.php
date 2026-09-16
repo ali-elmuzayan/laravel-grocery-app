@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\UserOtp;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;

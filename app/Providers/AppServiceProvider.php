@@ -12,6 +12,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public const Per_Page = 10;
     public function register(): void
     {
         //

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 12, 2);
             $table->integer('stock')->default(0);
+            // discount 
+            $table->integer('discount')->nullable();
+            $table->date('discount_expires_at')->nullable();
             $table->string('status')->default('pending')->index();
             $table->boolean('is_active')->default(false)->index();
             $table->timestamps();

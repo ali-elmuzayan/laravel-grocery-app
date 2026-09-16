@@ -1,13 +1,26 @@
 <?php
 
+use App\Domain\Catalog\Http\Controllers\CategoryController;
+use App\Domain\Catalog\Http\Controllers\ProductController;
 use App\Http\Controllers\Api\V1\AdminController;
-use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CatalogController;
 use App\Http\Controllers\Api\V1\DeliveryController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use Illuminate\Support\Facades\Route;
+
+
+// Categories routes 
+Route::apiResource('/categories', CategoryController::class)->only(['index', 'show']);
+
+// Products Routes; 
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
+
+
+
+
 
 Route::prefix('v1')->group(function (): void {
     Route::middleware(['auth:api', 'throttle:api'])->group(function (): void {

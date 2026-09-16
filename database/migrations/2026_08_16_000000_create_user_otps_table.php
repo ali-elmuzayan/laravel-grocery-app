@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Relationships: 
-            $table->foreign('user_id')->unique()->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             // Indexes: 
             $table->index(['user_id', 'type', 'verified_at']);
