@@ -1,7 +1,8 @@
 <?php
 
+use App\Domain\Catalog\Http\Controllers\CategoryController;
+use App\Domain\Catalog\Http\Controllers\ProductController;
 use App\Http\Controllers\Api\V1\AdminController;
-use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CatalogController;
 use App\Http\Controllers\Api\V1\DeliveryController;
@@ -9,17 +10,20 @@ use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use Illuminate\Support\Facades\Route;
 
+
+// Categories routes 
+Route::apiResource('/categories', CategoryController::class)->only(['index', 'show']);
+
+// Products Routes; 
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
+
+
+
+
+
 Route::prefix('v1')->group(function (): void {
-    Route::middleware('throttle:login')->group(function (): void {
-        Route::post('/auth/register', [AuthController::class, 'register']);
-        Route::post('/auth/login', [AuthController::class, 'login']);
-        Route::post('/auth/refresh', [AuthController::class, 'refresh']);
-    });
-
     Route::middleware(['auth:api', 'throttle:api'])->group(function (): void {
-        Route::post('/auth/logout', [AuthController::class, 'logout']);
-        Route::get('/auth/me', [AuthController::class, 'me']);
-
         Route::get('/catalog/products', [CatalogController::class, 'index']);
         Route::get('/catalog/categories', [CatalogController::class, 'categories']);
 
@@ -46,3 +50,15 @@ Route::prefix('v1')->group(function (): void {
         Route::patch('/products/{product}/reject', [AdminController::class, 'rejectProduct']);
     });
 });
+
+
+
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'message' => 'API is running',
+    ]);
+});
+
+
+require base_path('app/Domain/Auth/routes/auth.php');
